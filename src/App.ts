@@ -1,5 +1,4 @@
 import 'assets/styles/tailwind.css'
-import { createApp } from 'vue'
 
 const App = (() => {
 	const initVueApp = () => {
