@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"dev": "ENV=development PORT=3000 IO_PORT=3030 webpack serve --mode=development",
+		"dev": "cross-env ENV=development PORT=3000 IO_PORT=3030 webpack serve --mode=development",
 		"prod": "webpack --mode=production",
 		"serve": "PORT=8080 NODE_NO_WARNINGS=1 node ./config/webpack.serve.config.js",
 		"prettier": "tsc --noEmit && prettier src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --check",
@@ -36,6 +36,7 @@
 		"commitizen": "^4.2.5",
 		"commitlint": "^17.2.0",
 		"core-js": "^3.26.1",
+		"cross-env": "^7.0.3",
 		"css-loader": "^6.7.1",
 		"css-minimizer-webpack-plugin": "^4.2.2",
 		"esbuild-loader": "^2.20.0",
@@ -60,7 +61,6 @@
 		"sass": "^1.56.1",
 		"sass-loader": "^13.2.0",
 		"socket.io": "^4.5.3",
-		"swc-loader": "^0.2.3",
 		"tailwindcss": "^3.2.3",
 		"terser-webpack-plugin": "^5.3.6",
 		"unplugin-auto-import": "^0.11.4",
