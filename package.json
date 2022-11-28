@@ -2,6 +2,7 @@
 	"scripts": {
 		"dev": "cross-env ENV=development PORT=3000 IO_PORT=3030 webpack serve --mode=development",
 		"prod": "webpack --mode=production",
+		"prod:esm": "cross-env ESM=true webpack --mode=production",
 		"serve": "cross-env PORT=8080 NODE_NO_WARNINGS=1 node ./config/webpack.serve.config.js",
 		"prettier": "tsc --noEmit && prettier src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --check",
 		"lint": "tsc --noEmit && eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --ignore-pattern node_modules/",
@@ -33,6 +34,7 @@
 		"autoprefixer": "^10.4.13",
 		"babel-loader": "^9.1.0",
 		"babel-preset-typescript-vue3": "^2.0.17",
+		"clean-webpack-plugin": "^4.0.0",
 		"commitizen": "^4.2.5",
 		"commitlint": "^17.2.0",
 		"core-js": "^3.26.1",
@@ -51,7 +53,7 @@
 		"husky": "^8.0.2",
 		"isomorphic-fetch": "^3.0.0",
 		"lint-staged": "^13.0.3",
-		"mini-css-extract-plugin": "^2.6.1",
+		"mini-css-extract-plugin": "^2.7.0",
 		"nodemon": "^2.0.20",
 		"postcss": "^8.4.18",
 		"postcss-loader": "^7.0.1",
@@ -70,7 +72,7 @@
 		"webpack-dev-server": "^4.11.1"
 	},
 	"dependencies": {
-		"vue": "^3.2.44",
+		"vue": "^3.2.45",
 		"vue-router": "^4.1.6"
 	}
 }

@@ -1,3 +1,4 @@
+const path = require('path')
 const { DefinePlugin } = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -8,6 +9,27 @@ module.exports = (async () => {
 
 	return {
 		mode: 'production',
+		output: {
+			publicPath: '/',
+			...(process.env.ESM
+				? {
+						module: true,
+						// library: { type: 'module' },
+						environment: {
+							// module: true,
+							dynamicImport: true,
+						},
+				  }
+				: {}),
+		},
+		...(process.env.ESM
+			? {
+					// externalsType: 'module',
+					externals: {
+						vue: 'module https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.esm-browser.prod.min.js',
+					},
+			  }
+			: {}),
 		module: {
 			rules: [
 				{
@@ -35,6 +57,7 @@ module.exports = (async () => {
 					},
 				},
 			],
+			noParse: /vue/,
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
@@ -45,6 +68,7 @@ module.exports = (async () => {
 					env: process.env.ENV,
 					ioHost: JSON.stringify(process.env.IO_HOST),
 				},
+				scriptLoading: process.env.ESM ? 'module' : 'defer',
 				minify: {
 					collapseWhitespace: true,
 					removeComments: true,
@@ -68,9 +92,6 @@ module.exports = (async () => {
 		},
 		optimization: {
 			moduleIds: 'deterministic',
-			runtimeChunk: {
-				name: (entrypoint) => `runtimechunk_${entrypoint.name}`,
-			},
 			splitChunks: {
 				chunks: 'all',
 				minSize: 5000,
@@ -84,7 +105,6 @@ module.exports = (async () => {
 						minSizeReduction: 100000,
 					},
 					styles: {
-						name: 'bundle',
 						type: 'css/mini-extract',
 						priority: 100,
 						minSize: 1000,
@@ -92,13 +112,19 @@ module.exports = (async () => {
 						minSizeReduction: 50000,
 						enforce: true,
 					},
+					vue: {
+						test: /vue/,
+						filename: '[chunkhash:8].js',
+						chunks: 'all',
+						enforce: true,
+					}, // vue
 				},
 			},
 
 			minimize: true,
 			minimizer: [
 				new TerserPlugin({
-					parallel: true,
+					parallel: 4,
 					terserOptions: {
 						format: {
 							comments: false, // It will drop all the console.log statements from the final production build
@@ -111,9 +137,23 @@ module.exports = (async () => {
 				}),
 				new CssMinimizerPlugin({
 					exclude: /node_modules/,
-					parallel: true,
+					parallel: 4,
+
+					minify: [
+						CssMinimizerPlugin.esbuildMinify,
+						CssMinimizerPlugin.cssnanoMinify,
+						CssMinimizerPlugin.cssoMinify,
+						CssMinimizerPlugin.cleanCssMinify,
+					],
 				}),
 			],
-		},
+		}, // optimization
+		...(process.env.ESM
+			? {
+					experiments: {
+						outputModule: true,
+					},
+			  }
+			: {}),
 	}
 })()

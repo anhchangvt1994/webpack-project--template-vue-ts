@@ -38,17 +38,32 @@ const WebpackDevelopmentConfiguration = async () => {
 		output: {
 			publicPath: '/',
 			module: true,
+			// library: { type: 'module' },
+			environment: {
+				// module: true,
+				dynamicImport: true,
+			},
+			scriptType: 'module',
 		},
-		devtool: 'inline-source-map',
+		// externalsType: 'module',
+		externals: {
+			vue: 'module https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.esm-browser.min.js',
+			'vue-router':
+				'module https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.esm-browser.min.js',
+		},
+		devtool: 'inline-source-map', // NOTE - BAD Performance, GOOD debugging
+		// devtool: 'eval-cheap-module-source-map', // NOTE - SLOW Performance, GOOD debugging
+		// devtool: 'eval', // NOTE - GOOD Performance, BAD debugging
+		// devtool: 'eval-cheap-source-map',
 		devServer: {
 			compress: true,
 			port,
 			static: './dist',
-			watchFiles: ['src/**/*', 'index.html'],
+			watchFiles: ['src/**/*', 'config/index.html'],
 			hot: true,
 			liveReload: false,
 			host: process.env.PROJECT_IPV4_HOST,
-			devMiddleware: { writeToDisk: true },
+			devMiddleware: { publicPath: '/', writeToDisk: true },
 		},
 		module: {
 			rules: [
@@ -88,15 +103,15 @@ const WebpackDevelopmentConfiguration = async () => {
 					},
 				},
 			],
+			noParse: /vue/,
 		},
 		plugins: [
 			RecompileLoadingScreenInitial,
-			new webpack.PrefetchPlugin('.', '/src/App.ts'),
-			new webpack.PrefetchPlugin('.', '/src/App.vue'),
 			new HtmlWebpackPlugin({
 				title: 'webpack project for vue',
-				template: 'index.html',
+				template: 'config/index.html',
 				inject: 'body',
+				scriptLoading: 'module',
 				templateParameters: {
 					env: process.env.ENV,
 					ioHost: JSON.stringify(process.env.IO_HOST),
@@ -153,11 +168,17 @@ const WebpackDevelopmentConfiguration = async () => {
 
 				_socket.emit('updateProgressPercentage', Math.ceil(percentage * 100))
 			}),
-		],
+		].filter(Boolean),
 
 		cache: {
-			type: 'filesystem',
-			compression: 'gzip',
+			// NOTE - Type memory
+			type: 'memory',
+			cacheUnaffected: true,
+			maxGenerations: Infinity,
+
+			// NOTE - Type filesystem
+			// type: 'filesystem',
+			// compression: 'gzip',
 		},
 
 		// NOTE - We need get single runtime chunk to ignore issue hot module replacement after changing a file
@@ -169,15 +190,14 @@ const WebpackDevelopmentConfiguration = async () => {
 					default: false,
 					styles: {
 						// NOTE - For mini-css-extract
-						chunks: 'all',
-						name: 'bundle',
-						type: 'css/mini-extract',
-						priority: 100,
-						minSize: 0,
-						maxSize: 500,
-						minSizeReduction: 500,
-						enforce: true,
-
+						// chunks: 'all',
+						// name: 'bundle',
+						// type: 'css/mini-extract',
+						// priority: 100,
+						// minSize: 0,
+						// maxSize: 500,
+						// minSizeReduction: 500,
+						// enforce: true,
 						// NOTE - For style-loader
 						// name: 'bundle',
 						// test: /\.((c|sa|sc)ss)$/i,
@@ -188,6 +208,12 @@ const WebpackDevelopmentConfiguration = async () => {
 						// maxSize: 500,
 						// minSizeReduction: 500,
 					},
+					vue: {
+						test: /vue/,
+						filename: '[chunkhash:8].js',
+						chunks: 'all',
+						enforce: true,
+					}, // vue
 				},
 			},
 		},
@@ -285,7 +311,7 @@ class RecompileLoadingScreen {
 				self._stopTimeoutTurnOffProcessing()
 			}
 
-			self._setTimeoutTurnOffProcessingWithDuration(40)
+			self._setTimeoutTurnOffProcessingWithDuration(70)
 		})
 	}
 }
