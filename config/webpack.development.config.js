@@ -47,9 +47,8 @@ const WebpackDevelopmentConfiguration = async () => {
 		},
 		// externalsType: 'module',
 		externals: {
-			vue: 'module https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.esm-browser.min.js',
-			'vue-router':
-				'module https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.esm-browser.min.js',
+			vue: 'module https://esm.sh/vue@3.2.45?dev',
+			'vue-router': 'module https://esm.sh/vue-router@4.1.6?dev',
 		},
 		devtool: 'inline-source-map', // NOTE - BAD Performance, GOOD debugging
 		// devtool: 'eval-cheap-module-source-map', // NOTE - SLOW Performance, GOOD debugging
@@ -186,6 +185,7 @@ const WebpackDevelopmentConfiguration = async () => {
 		optimization: {
 			runtimeChunk: 'single',
 			splitChunks: {
+				minSize: 0,
 				cacheGroups: {
 					default: false,
 					styles: {
@@ -208,12 +208,15 @@ const WebpackDevelopmentConfiguration = async () => {
 						// maxSize: 500,
 						// minSizeReduction: 500,
 					},
-					vue: {
-						test: /vue/,
-						filename: '[chunkhash:8].js',
+					vendors: {
 						chunks: 'all',
+						test: /[\\/]node_modules[\\/]/,
+						name: 'vendors',
+						reuseExistingChunk: true,
+						// minSize: 30000,
+						// maxSize: 200000,
 						enforce: true,
-					}, // vue
+					},
 				},
 			},
 		},

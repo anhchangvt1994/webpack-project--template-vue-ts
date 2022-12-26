@@ -26,7 +26,8 @@ module.exports = (async () => {
 			? {
 					// externalsType: 'module',
 					externals: {
-						vue: 'module https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.esm-browser.prod.min.js',
+						vue: 'module https://esm.sh/vue@3.2.45',
+						'vue-router': 'module https://esm.sh/vue-router@4.1.6',
 					},
 			  }
 			: {}),
@@ -98,12 +99,6 @@ module.exports = (async () => {
 				maxSize: 100000,
 
 				cacheGroups: {
-					vendor: {
-						name: 'vendors',
-						reuseExistingChunk: true,
-						test: /[\\/]node_modules[\\/]/,
-						minSizeReduction: 100000,
-					},
 					styles: {
 						type: 'css/mini-extract',
 						priority: 100,
@@ -112,12 +107,13 @@ module.exports = (async () => {
 						minSizeReduction: 50000,
 						enforce: true,
 					},
-					vue: {
-						test: /vue/,
-						filename: '[chunkhash:8].js',
-						chunks: 'all',
+					vendor: {
+						test: /[\\/]node_modules[\\/]/,
+						name: 'vendors',
 						enforce: true,
-					}, // vue
+						reuseExistingChunk: true,
+						// minSizeReduction: 100000,
+					},
 				},
 			},
 
