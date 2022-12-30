@@ -9,7 +9,7 @@
 	"files": [
 		"auto-imports.d.ts",
 		"config/types/ImportMeta.d.ts",
-		"src/images.d.ts"
+		"src/static.d.ts"
 	],
 	"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.vue"],
 	"compilerOptions": {
