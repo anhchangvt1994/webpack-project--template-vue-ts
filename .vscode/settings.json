@@ -1,3 +1,11 @@
 {
-    "nuxt.isNuxtApp": false
+	"nuxt.isNuxtApp": false,
+
+	"path-autocomplete.extensionOnImport": true,
+	"path-autocomplete.includeExtension": true,
+	"path-autocomplete.excludedItems": {
+		"**": { "when": "**", "isDir": true }
+	},
+	"path-autocomplete.pathSeparators": " \t({[",
+	"editor.suggest.showModules": false
 }

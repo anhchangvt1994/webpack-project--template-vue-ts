@@ -1,5 +1,17 @@
 {
-	"exclude": ["node_modules"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"package.json",
+		"package-lock.json",
+		"yarn-lock.json"
+	],
+	"files": [
+		"auto-imports.d.ts",
+		"config/types/ImportMeta.d.ts",
+		"src/images.d.ts"
+	],
+	"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.vue"],
 	"compilerOptions": {
 		// NOTE - Set what module will be built for project (es, commonjs) (what is compile way will be chosen for import / export syntax)
 		// https://www.typescriptlang.org/tsconfig#module
@@ -18,7 +30,14 @@
 		"moduleResolution": "node",
 
 		// NOTE - Base path of project setup with this tsconfig
-		"baseUrl": ".",
+		"baseUrl": "src",
+
+		// NOTE - Setup resolve alias path for project (use case is for auto complete sugestion)
+		"paths": {
+			"@/*": ["../*"],
+			"src/*": ["*"],
+			"assets/*": ["assets/*"]
+		},
 
 		// NOTE - Tell typescript compile just only check type
 		// https://www.typescriptlang.org/tsconfig#noEmit
@@ -29,13 +48,6 @@
 		// https://www.typescriptlang.org/tsconfig#jsx
 		// https://stackoverflow.com/questions/62859458/what-is-the-use-of-jsx-property-in-tsconfig-json
 		"jsx": "preserve",
-
-		// NOTE - Setup resolve alias path for project (use case is for auto complete sugestion)
-		"paths": {
-			"@/*": ["*"],
-			"js/*": ["src/*"],
-			"assets/*": ["assets/*"]
-		},
 
 		// NOTE - Allow JavaScript files to be imported inside your project
 		// https://www.typescriptlang.org/tsconfig#allowJs
@@ -62,7 +74,8 @@
 		"allowSyntheticDefaultImports": true,
 		"importsNotUsedAsValues": "error",
 		"importHelpers": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"isolatedModules": true
 	},
 	"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 }

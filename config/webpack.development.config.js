@@ -114,6 +114,8 @@ const WebpackDevelopmentConfiguration = async () => {
 				templateParameters: {
 					env: process.env.ENV,
 					ioHost: JSON.stringify(process.env.IO_HOST),
+					__VUE_OPTIONS_API__: true,
+					__VUE_PROD_DEVTOOLS__: false,
 				},
 				// excludeChunks: ["socket.io-client"],
 			}),

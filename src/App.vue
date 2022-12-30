@@ -14,7 +14,7 @@
 <template>
 	<div class="app">
 		<img
-			src="@/assets/images/logo.svg"
+			src="@/src/assets/images/logo.svg"
 			alt="Vue Logo"
 			width="256"
 			height="256"

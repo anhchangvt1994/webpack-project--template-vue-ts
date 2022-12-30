@@ -18,7 +18,8 @@
 		"not dead"
 	],
 	"overrides": {
-		"isomorphic-fetch@*": "$isomorphic-fetch"
+		"isomorphic-fetch@*": "$isomorphic-fetch",
+		"tsconfig-paths@*": "$tsconfig-paths"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.5",
@@ -65,6 +66,7 @@
 		"socket.io": "^4.5.4",
 		"tailwindcss": "^3.2.4",
 		"terser-webpack-plugin": "^5.3.6",
+		"tsconfig-paths": "^4.1.1",
 		"unplugin-auto-import": "^0.12.1",
 		"vue-loader": "^17.0.1",
 		"webpack": "^5.75.0",

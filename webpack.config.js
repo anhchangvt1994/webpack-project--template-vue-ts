@@ -24,7 +24,7 @@ module.exports = async (env, arg) => {
 			...(WebpackConfigWithMode.entry || {}),
 		},
 		output: {
-			globalObject: 'window',
+			globalObject: 'globalThis',
 			filename: '[contenthash:8].js',
 			assetModuleFilename:
 				arg.mode === 'production'

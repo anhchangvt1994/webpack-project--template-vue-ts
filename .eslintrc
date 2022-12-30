@@ -47,7 +47,7 @@
 				"alias": {
 					"@": "./",
 					"js": "./src",
-					"assets": "./assets"
+					"assets": "./src/assets"
 				},
 				"extensions": [".js", ".jsx", ".vue", ".ts", ".tsx"]
 			}
