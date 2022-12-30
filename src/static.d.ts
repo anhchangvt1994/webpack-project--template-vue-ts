@@ -38,11 +38,3 @@ declare module '*.webm' {
 	const value: any
 	export = value
 }
-
-
-can autocomplete image extension when use import and require + declare
-module for it.
-- autocomplete image extension
-- hidden autocomplete module
-- set globalThis _VUE_OPTIONS_API_
-- set globalThis _VUE_PROD_DEVTOOLS_
