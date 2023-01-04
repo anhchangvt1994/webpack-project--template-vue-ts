@@ -27,7 +27,6 @@ module.exports = (async () => {
 					// externalsType: 'module',
 					externals: {
 						vue: 'module https://esm.sh/vue@3.2.45',
-						'vue-router': 'module https://esm.sh/vue-router@4.1.6',
 					},
 			  }
 			: {}),
@@ -109,7 +108,7 @@ module.exports = (async () => {
 					},
 					vendor: {
 						test: /[\\/]node_modules[\\/]/,
-						name: 'vendors',
+						filename: '[chunkhash:8].js',
 						enforce: true,
 						reuseExistingChunk: true,
 						// minSizeReduction: 100000,

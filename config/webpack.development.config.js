@@ -48,7 +48,6 @@ const WebpackDevelopmentConfiguration = async () => {
 		// externalsType: 'module',
 		externals: {
 			vue: 'module https://esm.sh/vue@3.2.45?dev',
-			'vue-router': 'module https://esm.sh/vue-router@4.1.6?dev',
 		},
 		devtool: 'inline-source-map', // NOTE - BAD Performance, GOOD debugging
 		// devtool: 'eval-cheap-module-source-map', // NOTE - SLOW Performance, GOOD debugging
@@ -173,13 +172,13 @@ const WebpackDevelopmentConfiguration = async () => {
 
 		cache: {
 			// NOTE - Type memory
-			type: 'memory',
-			cacheUnaffected: true,
-			maxGenerations: Infinity,
+			// type: 'memory',
+			// cacheUnaffected: true,
+			// maxGenerations: Infinity,
 
 			// NOTE - Type filesystem
-			// type: 'filesystem',
-			// compression: 'gzip',
+			type: 'filesystem',
+			compression: 'gzip',
 		},
 
 		// NOTE - We need get single runtime chunk to ignore issue hot module replacement after changing a file
