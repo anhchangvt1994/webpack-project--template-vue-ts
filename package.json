@@ -75,5 +75,15 @@
 	},
 	"dependencies": {
 		"vue": "^3.2.45"
-	}
+	},
+	"eslintConfig": {
+		"extends": [
+			"config/eslint.config.js"
+		]
+	},
+	"prettier": "./config/prettier.config.js",
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": "npm run prettier && npm run lint"
+	},
+	"commitlint": "config/.commitlintrc"
 }

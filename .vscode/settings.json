@@ -10,5 +10,6 @@
 		"images": "${workspace}/src/assets/images"
 	},
 	"path-autocomplete.pathSeparators": " \t({[",
-	"editor.suggest.showModules": false
+	"editor.suggest.showModules": false,
+	"editorconfig.template": "${workspace}/config/.editorconfig"
 }

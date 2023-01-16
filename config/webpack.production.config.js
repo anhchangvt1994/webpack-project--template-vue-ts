@@ -57,7 +57,6 @@ module.exports = (async () => {
 					},
 				},
 			],
-			noParse: /vue/,
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
