@@ -1,4 +1,3 @@
-const path = require('path')
 const { DefinePlugin } = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
