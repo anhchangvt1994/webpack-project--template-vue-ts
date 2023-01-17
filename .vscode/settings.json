@@ -13,5 +13,10 @@
 	"path-autocomplete.pathSeparators": " \t({[",
 	"path-autocomplete.disableUpOneFolder": false,
 	"path-autocomplete.enableFolderTrailingSlash": false,
-	"editor.suggest.showModules": false
+	"editor.suggest.showModules": false,
+	"editor.codeActionsOnSave": [
+		"source.formatDocument",
+		"source.fixAll.tslint",
+		"source.fixAll.eslint"
+	]
 }

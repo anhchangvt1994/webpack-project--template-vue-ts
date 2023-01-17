@@ -105,6 +105,7 @@ module.exports = (async () => {
 						enforce: true,
 					},
 					vendor: {
+						chunks: 'all',
 						test: /[\\/]node_modules[\\/]/,
 						filename: '[chunkhash:8].js',
 						enforce: true,
