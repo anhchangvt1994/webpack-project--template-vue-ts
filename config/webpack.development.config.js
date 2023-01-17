@@ -106,7 +106,7 @@ const WebpackDevelopmentConfiguration = async () => {
 			RecompileLoadingScreenInitial,
 			new HtmlWebpackPlugin({
 				title: 'webpack project for vue',
-				template: 'config/index.html',
+				template: 'index.development.html',
 				inject: 'body',
 				scriptLoading: 'module',
 				templateParameters: {

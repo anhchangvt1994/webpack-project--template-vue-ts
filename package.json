@@ -42,6 +42,7 @@
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.7.3",
 		"css-minimizer-webpack-plugin": "^4.2.2",
+		"cz-git": "^1.4.1",
 		"esbuild-loader": "^2.20.0",
 		"eslint": "^8.30.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -85,5 +86,32 @@
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": "npm run prettier && npm run lint"
 	},
-	"commitlint": "config/.commitlintrc"
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		],
+		"rules": {
+			"type-enum": [
+				2,
+				"always",
+				[
+					"feat",
+					"style",
+					"test",
+					"fix",
+					"docs",
+					"release",
+					"update",
+					"perf",
+					"chore"
+				]
+			]
+		}
+	},
+	"config": {
+		"commitizen": {
+			"path": "git-cz",
+			"czConfig": "./config/git-cz.config.js"
+		}
+	}
 }

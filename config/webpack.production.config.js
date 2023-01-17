@@ -61,7 +61,7 @@ module.exports = (async () => {
 		plugins: [
 			new HtmlWebpackPlugin({
 				title: 'webpack project for vue',
-				template: 'index.html',
+				template: 'index.production.html',
 				inject: 'body',
 				templateParameters: {
 					env: process.env.ENV,
