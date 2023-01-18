@@ -1,7 +1,8 @@
+.DS_Store
 package-lock.json
 yarn.lock
 node_modules
 dist
 config/env/.env
 config/env/env.json
-config/.DS_Store
+*.DS_Store

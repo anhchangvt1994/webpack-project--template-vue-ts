@@ -3,7 +3,8 @@
 		"Vue.volar",
 		"Vue.vscode-typescript-vue-plugin",
 		"TabNine.tabnine-vscode",
-		"ionutvmi.path-autocomplete"
+		"ionutvmi.path-autocomplete",
+    "rohit-gohri.format-code-action"
 	],
 	"unwantedRecommendations": ["vscode.typescript-language-features"]
 }

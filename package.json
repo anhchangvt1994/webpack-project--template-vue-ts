@@ -4,12 +4,12 @@
 		"prod": "webpack --mode=production",
 		"prod:esm": "cross-env ESM=true webpack --mode=production",
 		"serve": "cross-env PORT=8080 NODE_NO_WARNINGS=1 node ./config/webpack.serve.config.js",
-		"prettier": "tsc --noEmit && prettier src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --check",
-		"lint": "tsc --noEmit && eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --ignore-pattern node_modules/",
+		"prettier": "tsc --noEmit && prettier src/**/*.{vue,js,ts}{,x} --no-error-on-unmatched-pattern --check",
+		"lint": "tsc --noEmit && eslint src/**/*.{vue,js,ts}{,x} --no-error-on-unmatched-pattern --ignore-pattern node_modules/",
 		"lint:fix": "npm run lint -- --fix",
 		"prettier:fix": "npm run prettier -- --write",
 		"format": "npm run prettier:fix && npm run lint:fix",
-		"prepare": "npx husky install",
+		"prepare": "git config core.autocrlf false && npx husky install",
 		"pre-commit": "lint-staged"
 	},
 	"browserslist": [
@@ -83,7 +83,7 @@
 	},
 	"prettier": "./config/prettier.config.js",
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx}": "npm run prettier && npm run lint"
+		"*.{vue,js,jsx,ts,tsx}": "npm run prettier && npm run lint"
 	},
 	"commitlint": {
 		"extends": [

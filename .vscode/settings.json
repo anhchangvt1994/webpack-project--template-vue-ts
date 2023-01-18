@@ -14,6 +14,8 @@
 	"path-autocomplete.disableUpOneFolder": false,
 	"path-autocomplete.enableFolderTrailingSlash": false,
 	"editor.suggest.showModules": false,
+  "editor.formatOnSave": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.codeActionsOnSave": [
 		"source.formatDocument",
 		"source.fixAll.tslint",
