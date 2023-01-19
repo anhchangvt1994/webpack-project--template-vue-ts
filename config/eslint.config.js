@@ -4,7 +4,7 @@ module.exports = {
 	env: {
 		browser: true,
 		es6: true,
-		jest: true,
+		// jest: true,
 		node: true,
 	},
 	extends: [
@@ -40,7 +40,9 @@ module.exports = {
 				endOfLine: 'auto',
 			},
 		],
-    // NOTE - This options settup for stop linting alias
+		'@typescript-eslint/naming-convention': 'off',
+		'no-unused-vars': 'warn',
+		// NOTE - This options settup for stop linting alias
 		// "import/no-unresolved": [0, { }]
 	},
 	settings: {
