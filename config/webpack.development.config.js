@@ -1,3 +1,4 @@
+const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -38,16 +39,10 @@ const WebpackDevelopmentConfiguration = async () => {
 		output: {
 			publicPath: '/',
 			module: true,
-			// library: { type: 'module' },
 			environment: {
-				// module: true,
 				dynamicImport: true,
 			},
 			scriptType: 'module',
-		},
-		// externalsType: 'module',
-		externals: {
-			vue: 'module https://esm.sh/vue@3.2.45?dev',
 		},
 		devtool: 'inline-source-map', // NOTE - BAD Performance, GOOD debugging
 		// devtool: 'eval-cheap-module-source-map', // NOTE - SLOW Performance, GOOD debugging
@@ -61,7 +56,10 @@ const WebpackDevelopmentConfiguration = async () => {
 			hot: true,
 			liveReload: false,
 			host: process.env.PROJECT_IPV4_HOST,
-			devMiddleware: { publicPath: '/', writeToDisk: true },
+			devMiddleware: {
+				publicPath: '/',
+				writeToDisk: true,
+			},
 		},
 		module: {
 			rules: [
@@ -152,7 +150,7 @@ const WebpackDevelopmentConfiguration = async () => {
 						})
 					},
 					{
-						fileDependencies: `${PROJECT_PATH}/env/.env`,
+						fileDependencies: path.resolve(__dirname, './env/.env'),
 					}
 				),
 			}),
@@ -168,6 +166,11 @@ const WebpackDevelopmentConfiguration = async () => {
 				_socket.emit('updateProgressPercentage', Math.ceil(percentage * 100))
 			}),
 		].filter(Boolean),
+
+		stats: {
+			preset: 'errors-only',
+			all: false,
+		},
 
 		cache: {
 			// NOTE - Type memory
@@ -188,33 +191,25 @@ const WebpackDevelopmentConfiguration = async () => {
 				minSize: 0,
 				cacheGroups: {
 					default: false,
-					styles: {
-						// NOTE - For mini-css-extract
-						// chunks: 'all',
-						// name: 'bundle',
-						// type: 'css/mini-extract',
-						// priority: 100,
-						// minSize: 0,
-						// maxSize: 500,
-						// minSizeReduction: 500,
-						// enforce: true,
-						// NOTE - For style-loader
-						// name: 'bundle',
-						// test: /\.((c|sa|sc)ss)$/i,
-						// chunks: 'all',
-						// priority: 100,
-						// enforce: true,
-						// minSize: 0,
-						// maxSize: 500,
-						// minSizeReduction: 500,
-					},
 					vendors: {
 						chunks: 'all',
 						test: /[\\/]node_modules[\\/]/,
 						name: 'vendors',
 						reuseExistingChunk: true,
-						// minSize: 30000,
-						// maxSize: 200000,
+						enforce: true,
+					},
+					utils: {
+						chunks: 'async',
+						test: /[\\/]utils[\\/]/,
+						name: 'utils',
+						reuseExistingChunk: true,
+						enforce: true,
+					},
+					config: {
+						chunks: 'async',
+						test: /[\\/]config[\\/]/,
+						name: 'config',
+						reuseExistingChunk: true,
 						enforce: true,
 					},
 				},

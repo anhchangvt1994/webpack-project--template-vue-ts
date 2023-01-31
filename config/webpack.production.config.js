@@ -80,6 +80,14 @@ module.exports = (async () => {
 				'import.meta.env': ENV_OBJ_WITH_JSON_STRINGIFY_VALUE,
 			}),
 		],
+		stats: {
+			assetsSort: '!size',
+			children: false,
+			usedExports: false,
+			modules: false,
+			entrypoints: false,
+			excludeAssets: [/\.*\.map/],
+		},
 		cache: {
 			type: 'filesystem',
 			compression: 'gzip',
@@ -112,6 +120,24 @@ module.exports = (async () => {
 						reuseExistingChunk: true,
 						// minSizeReduction: 100000,
 					},
+					utils: {
+						chunks: 'all',
+						test: /[\\/]utils[\\/]/,
+						filename: '[chunkhash:8].js',
+						reuseExistingChunk: true,
+						minSize: 10000,
+						maxSize: 100000,
+						// enforce: true,
+					},
+					config: {
+						chunks: 'all',
+						test: /[\\/]config[\\/]/,
+						filename: '[chunkhash:8].js',
+						reuseExistingChunk: true,
+						minSize: 10000,
+						maxSize: 100000,
+						// enforce: true,
+					},
 				},
 			},
 
@@ -142,6 +168,7 @@ module.exports = (async () => {
 				}),
 			],
 		}, // optimization
+		target: process.env.ESM ? 'web' : 'browserslist',
 		...(process.env.ESM
 			? {
 					experiments: {

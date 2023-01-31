@@ -4,17 +4,19 @@
 	"path-autocomplete.extensionOnImport": true,
 	"path-autocomplete.includeExtension": true,
 	"path-autocomplete.excludedItems": {
-		"**": { "when": "**/*.{js,ts,vue}", "isDir": true }
+		"**": {
+			"when": "**/*.{js,ts,jsx,tsx}",
+			"isDir": true,
+			"context": "(import|require).*"
+		}
 	},
 	"path-autocomplete.pathMappings": {
-		"images": "${workspace}/src/assets/images",
+		"/": "${workspace}/src/assets/static",
 		"assets": "${workspace}/src/assets"
 	},
 	"path-autocomplete.pathSeparators": " \t({[",
-	"path-autocomplete.disableUpOneFolder": false,
-	"path-autocomplete.enableFolderTrailingSlash": false,
 	"editor.suggest.showModules": false,
-  "editor.formatOnSave": false,
+	"editor.formatOnSave": false,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.codeActionsOnSave": [
 		"source.formatDocument",

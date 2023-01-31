@@ -4,6 +4,7 @@ const fs = require('fs')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const PROJECT_PATH = __dirname.replace(/\\/g, '/')
 
@@ -118,6 +119,23 @@ module.exports = async (env, arg) => {
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
+			new CopyPlugin({
+				patterns: [
+					{
+						from: './src/assets/static',
+						filter: (resourcePath) => {
+							if (
+								arg.mode === 'production' &&
+								resourcePath.indexOf('images/development') !== -1
+							) {
+								return false
+							}
+
+							return true
+						},
+					},
+				],
+			}),
 			new MiniCssExtractPlugin({
 				filename:
 					arg.mode === 'development'
@@ -139,7 +157,6 @@ module.exports = async (env, arg) => {
 				imports: [
 					// presets
 					'vue',
-					'vue-router',
 				],
 				dts: PROJECT_PATH + '/config/auto-imports.d.ts',
 				eslintrc: {
@@ -149,6 +166,7 @@ module.exports = async (env, arg) => {
 			}),
 			...(WebpackConfigWithMode.plugins || []),
 		],
+		stats: WebpackConfigWithMode.stats || 'detailed',
 		cache: WebpackConfigWithMode.cache || true,
 		optimization: WebpackConfigWithMode.optimization || {},
 		experiments: WebpackConfigWithMode.experiments || {},
