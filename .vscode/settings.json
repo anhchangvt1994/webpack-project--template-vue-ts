@@ -5,7 +5,7 @@
 	"path-autocomplete.includeExtension": true,
 	"path-autocomplete.excludedItems": {
 		"**": {
-			"when": "**/*.{js,ts,jsx,tsx}",
+			"when": "**/*.{js,ts,jsx,tsx,vue}",
 			"isDir": true,
 			"context": "(import|require).*"
 		}

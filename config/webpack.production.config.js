@@ -160,7 +160,7 @@ module.exports = (async () => {
 					parallel: 4,
 
 					minify: [
-						CssMinimizerPlugin.esbuildMinify,
+						// CssMinimizerPlugin.esbuildMinify,
 						CssMinimizerPlugin.cssnanoMinify,
 						CssMinimizerPlugin.cssoMinify,
 						CssMinimizerPlugin.cleanCssMinify,

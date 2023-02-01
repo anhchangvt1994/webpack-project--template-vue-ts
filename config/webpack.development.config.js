@@ -64,33 +64,36 @@ const WebpackDevelopmentConfiguration = async () => {
 		module: {
 			rules: [
 				// NOTE - Option 2
-				// {
-				//   test: /.(js|ts)$/,
-				//   exclude: /(node_modules)/,
-				//   use: {
-				//     loader: "swc-loader",
-				//     options: {
-				//       jsc: {
-				//         parser: {
-				//           syntax: "typescript",
-				//           decorators: true,
-				//         },
-				//       },
-				//     },
-				//   },
-				// },
-				// NOTE - Option 1 (popular)
 				{
-					test: /\.(js|ts)$/,
+					test: /.(jsx|tsx|js|ts)$/,
+					exclude: /(node_modules)/,
 					use: {
-						loader: 'esbuild-loader',
+						loader: 'swc-loader',
 						options: {
-							loader: 'ts',
-							target: 'esnext',
+							jsc: {
+								parser: {
+									syntax: 'typescript',
+									tsx: true,
+									decorators: false,
+									dynamicImport: true,
+								},
+								target: 'esnext',
+							},
 						},
 					},
-					exclude: /node_modules/,
 				},
+				// NOTE - Option 1 (popular)
+				// {
+				// 	test: /\.(js|ts)$/,
+				// 	use: {
+				// 		loader: 'esbuild-loader',
+				// 		options: {
+				// 			loader: 'ts',
+				// 			target: 'esnext',
+				// 		},
+				// 	},
+				// 	exclude: /node_modules/,
+				// },
 				{
 					test: /libs[\\/]socket.io.min.js/,
 					type: 'asset/resource',
