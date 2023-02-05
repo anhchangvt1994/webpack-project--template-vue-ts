@@ -1,9 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const { VueLoaderPlugin } = require('vue-loader')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const PROJECT_PATH = __dirname.replace(/\\/g, '/')
 
@@ -27,12 +27,9 @@ module.exports = async (env, arg) => {
 			...(WebpackConfigWithMode.entry || {}),
 		},
 		output: {
+			pathinfo: false,
 			globalObject: 'globalThis',
 			filename: '[contenthash:8].js',
-			assetModuleFilename:
-				arg.mode === 'production'
-					? '[contenthash:8][ext]'
-					: 'assets/[contenthash:8][ext]',
 			path: path.resolve(__dirname, 'dist'),
 			...(WebpackConfigWithMode.output || {}),
 		},
@@ -65,7 +62,7 @@ module.exports = async (env, arg) => {
 						{
 							// NOTE - We should use option 1 because if we use 'style-loader' then the import .css will be replace by <style></style> of sfc vue compiler
 							// NOTE - Option 2
-							// loader: "style-loader",
+							// loader: 'style-loader',
 
 							// NOTE - Option 1
 							loader: MiniCssExtractPlugin.loader,
@@ -122,6 +119,8 @@ module.exports = async (env, arg) => {
 				},
 				...(WebpackConfigWithMode?.module?.rules ?? []),
 			],
+			unsafeCache: true,
+			noParse: /[\\/]src\/assets\/static[\\/]|libs[\\/]socket.io.min.js/,
 		},
 		plugins: [
 			new CleanWebpackPlugin(),
@@ -143,13 +142,10 @@ module.exports = async (env, arg) => {
 				],
 			}),
 			new MiniCssExtractPlugin({
-				filename:
-					arg.mode === 'development'
-						? '[id].css'
-						: '[name].[contenthash:8].css',
-				chunkFilename:
-					arg.mode === 'development' ? '[id].css' : '[id].[contenthash:8].css',
+				filename: '[name].[contenthash:8].css',
+				chunkFilename: '[id].[contenthash:8].css',
 				ignoreOrder: false,
+				experimentalUseImportModule: true,
 			}),
 			new VueLoaderPlugin(),
 			require('unplugin-auto-import/webpack')({
