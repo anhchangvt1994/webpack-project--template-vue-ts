@@ -23,7 +23,15 @@ module.exports = {
 		'prettier',
 	],
 	plugins: ['@typescript-eslint/eslint-plugin'],
+	parser: 'vue-eslint-parser',
 	parserOptions: {
+		parser: {
+			js: 'espree',
+			jsx: 'espree',
+			ts: '@typescript-eslint/parser',
+			tsx: '@typescript-eslint/parser',
+			'<template>': 'espree',
+		},
 		ecmaFeatures: {
 			jsx: true,
 			tsx: true,
@@ -43,8 +51,6 @@ module.exports = {
 		],
 		'@typescript-eslint/naming-convention': 'off',
 		'no-unused-vars': 'warn',
-		// NOTE - This options settup for stop linting alias
-		// "import/no-unresolved": [0, { }]
 	},
 	settings: {
 		'import/resolver': {

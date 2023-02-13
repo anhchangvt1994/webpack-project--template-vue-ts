@@ -54,6 +54,10 @@ const WebpackDevelopmentConfiguration = async () => {
 			hot: true,
 			liveReload: false,
 			host: process.env.PROJECT_IPV4_HOST,
+			client: {
+				overlay: false,
+				logging: 'warn', // Want to set this to 'warn' or 'error'
+			},
 			devMiddleware: {
 				publicPath: '/',
 				writeToDisk: true,
