@@ -45,7 +45,7 @@ module.exports = (async () => {
 									{
 										bugfixes: true,
 										useBuiltIns: 'entry',
-										corejs: '3.26.1',
+										corejs: 3,
 									},
 								],
 								'babel-preset-typescript-vue3',
@@ -139,6 +139,15 @@ module.exports = (async () => {
 					config: {
 						chunks: 'all',
 						test: /[\\/]config[\\/]/,
+						filename: '[chunkhash:8].js',
+						reuseExistingChunk: true,
+						minSize: 10000,
+						maxSize: 100000,
+						// enforce: true,
+					},
+					store: {
+						chunks: 'all',
+						test: /[\\/]store[\\/]/,
 						filename: '[chunkhash:8].js',
 						reuseExistingChunk: true,
 						minSize: 10000,
