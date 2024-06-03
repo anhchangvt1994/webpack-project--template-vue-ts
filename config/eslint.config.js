@@ -38,7 +38,6 @@ module.exports = {
 		},
 		ecmaVersion: 'latest',
 		sourceType: 'module',
-		allowImportExportEverywhere: true,
 		project: './tsconfig.json',
 	},
 	rules: {

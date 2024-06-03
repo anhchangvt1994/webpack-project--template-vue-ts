@@ -3,8 +3,7 @@ module.exports = (obj) => {
 
 	let tmpENVContent = ''
 	for (let key in obj) {
-		tmpENVContent +=
-			key + '=' + (!obj[key] ? '' : JSON.stringify(obj[key]) + '\n')
+		tmpENVContent += key + '=' + (!obj[key] ? '' : obj[key] + '\n')
 	}
 
 	return tmpENVContent
