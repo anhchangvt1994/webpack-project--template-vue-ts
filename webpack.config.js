@@ -17,6 +17,10 @@ module.exports = async (env, arg) => {
 
 	if (!WebpackConfigWithMode) return
 
+	const { ENV_VARIABLE_EXPORTER_FOR_AUTO_IMPORT } = await import(
+		'./config/env/ENV_AUTO_IMPORT.mjs'
+	)
+
 	return {
 		mode: WebpackConfigWithMode.mode || arg.mode || 'production',
 		context: path.resolve(__dirname, '.'),
@@ -161,8 +165,12 @@ module.exports = async (env, arg) => {
 				imports: [
 					// presets
 					'vue',
+					{
+						...ENV_VARIABLE_EXPORTER_FOR_AUTO_IMPORT,
+					},
 				],
 				dts: PROJECT_PATH + '/config/auto-imports.d.ts',
+				vueTemplate: true,
 				eslintrc: {
 					enabled: true,
 					filepath: PROJECT_PATH + '/config/.eslintrc-auto-import.json',
